@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('./assets/MyFont/GlitchGoblin-2O87v.ttf') format('truetype'); /* Path to the font file */
+        }
+
+        body {
+            font-family: 'MyCustomFont', sans-serif;
+            letter-spacing: 5px;
+            font-size: x-large;
+            padding: 25px;
+            border: 5px dotted green;
+        }
+        *{
+            margin: 0px;
+            padding: 0;
+            background-color: black;
+            color: green;
+        }
+        .container{
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        button{
+            padding: 10px;
+            border: 2px solid white;
+            font-weight: bold;
+            font-size: 35px;
+            box-shadow: 8px 5px 2px 2px white;
+            margin: 20px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: green;
+            color: white;
+        }
+
+        .container div{
+            margin-left: 25px;
+        }
+
+    
+        @media (max-width: 600px)  {
+            button{
+                font-size: 25px;
+            }
+            body {
+            font-family: 'MyCustomFont', sans-serif;
+            letter-spacing: 2px;
+            font-size: large;
+            padding: 25px;
+        }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button>CLICK ME 💀</button>
+        
+    </div>
+    <script>
+        let container = document.querySelector(".container")
+
+        const randomDelay = () =>{
+            return new Promise((resolve,resize)=>{
+                let timeout =  Math.floor(1 + Math.random() * 7) * 1000;
+                setTimeout(() => {
+                    resolve()
+                },timeout)
+            })
+        }
+
+        const addItem = async (item) =>{
+            await randomDelay()
+            let div = document.createElement("div")
+            div.innerText = item
+            container.appendChild(div)
+        }
+
+      
+
+        async function main() {
+
+            let startDiv = document.createElement("div")
+            startDiv.innerHTML = '<h4  style="color: red;">Start Sequencing...</h4>'
+            container.appendChild(startDiv)
+
+            let t = setInterval(()=>{
+                let last = container.lastElementChild
+                if(last.innerHTML.endsWith('...')){
+                    last.innerHTML = last.innerHTML.slice(0,last.innerHTML.length-3)
+                }
+                else{
+                    last.innerHTML = last.innerHTML + '.'
+                }
+            },300)
+
+            let textArray = ['Initializing Hacking','Reading your files','Password Files detected','Sending all files to server','Cleaning up']
+            
+            for (const item of textArray){
+                console.log(item)
+                await addItem(item)
+            }
+            await randomDelay()
+            clearInterval(t)
+            let div = document.createElement("div")
+            div.innerHTML = '<h3  style="color: red;">Hacking Complete and All Data Sent to Server</h3>'
+            container.appendChild(div)
+
+
+        }
+        let btn = document.querySelector('button')
+        btn.addEventListener('click',main)
+
+    </script>
+</body>
+</html>
